@@ -19,3 +19,4 @@
     Route::post('/authors', 'IndexContreller@store_author')->name('store_author');
 
     Route::get('/books', 'IndexContreller@books')->name('books');
+    Route::post('/books', 'IndexContreller@store_book')->name('store_book');
