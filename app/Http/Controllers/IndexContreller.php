@@ -79,20 +79,17 @@
             $books->leftJoin('books', 'book_author.book_id', '=',
                     'books.id');
 
-            
-/*
+
             $books->leftJoin('authors', 'book_author.author_id', '=',
                     'authors.id');
-*/
-/*
-            $books->where('books.title', 'like', $seach);
-/*
-            $books->where('authors.first_name', 'like', $seach);
-            $books->where('authors.last_name', 'like', $seach);
-*/
-            /*
-            $books->where('authors.last_name', 'like', $seach);
-*/
+
+
+            $books->where('books.title', 'like', "%" . $seach . "%");
+            $books->where('books.title', 'like', "%" . $seach . "%");
+
+            $books->orWhere('authors.first_name', 'like', "%" . $seach . "%");
+            $books->orWhere('authors.last_name', 'like', "%" . $seach . "%");
+
             $books->select('*');
             $books = $books->get();
             return response()->json([
