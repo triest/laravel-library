@@ -5,6 +5,7 @@
     use App\Author;
     use App\Book;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\DB;
 
     class IndexContreller extends Controller
     {
@@ -57,5 +58,46 @@
             }
 
             return redirect('/books');
+        }
+
+        public function Search(Request $request)
+        {
+            return view('seach');
+        }
+
+        public function searchBook(Request $request)
+        {
+
+            if (!isset($request->seach)) {
+                return response()->json(['']);
+            }
+            $seach = $request->seach;
+
+            $books = null;
+            $books = DB::table('book_author');
+
+            $books->leftJoin('books', 'book_author.book_id', '=',
+                    'books.id');
+
+            
+/*
+            $books->leftJoin('authors', 'book_author.author_id', '=',
+                    'authors.id');
+*/
+/*
+            $books->where('books.title', 'like', $seach);
+/*
+            $books->where('authors.first_name', 'like', $seach);
+            $books->where('authors.last_name', 'like', $seach);
+*/
+            /*
+            $books->where('authors.last_name', 'like', $seach);
+*/
+            $books->select('*');
+            $books = $books->get();
+            return response()->json([
+                    'books' => $books,
+            ]);
+
         }
     }

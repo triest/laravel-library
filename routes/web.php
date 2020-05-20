@@ -20,3 +20,7 @@
 
     Route::get('/books', 'IndexContreller@books')->name('books');
     Route::post('/books', 'IndexContreller@store_book')->name('store_book');
+
+    Route::get('/search', 'IndexContreller@Search')->name('search');
+    Route::get('/search-book', 'IndexContreller@searchBook')->name('search');
+
